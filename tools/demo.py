@@ -151,7 +151,7 @@ class Predictor(object):
             logger.info("Infer time: {:.4f}s".format(time.time() - t0))
         return outputs, img_info
 
-    def visual(self, output, img_info, cls_conf=0.35):
+    def visual(self, p, output, img_info, cls_conf=0.35):
         ratio = img_info["ratio"]
         img = img_info["raw_img"]
         if output is None:
@@ -166,7 +166,7 @@ class Predictor(object):
         cls = output[:, 6]
         scores = output[:, 4] * output[:, 5]
 
-        vis_res = vis(img, bboxes, scores, cls, cls_conf, self.cls_names)
+        vis_res = vis(p, img, bboxes, scores, cls, cls_conf, self.cls_names)
         return vis_res
 
 
@@ -178,7 +178,12 @@ def image_demo(predictor, vis_folder, path, current_time, save_result):
     files.sort()
     for image_name in files:
         outputs, img_info = predictor.inference(image_name)
-        result_image = predictor.visual(outputs[0], img_info, predictor.confthre)
+        t = image_name.split('/')
+        #print(t[7])
+        splitted_name = os.path.splitext(t[7])
+        p = '/content/YOLOX/yolox/det/'+splitted_name[0]+'.txt'
+        file = open(p, 'w')
+        result_image = predictor.visual(p, outputs[0], img_info, predictor.confthre)
         if save_result:
             save_folder = os.path.join(
                 vis_folder, time.strftime("%Y_%m_%d_%H_%M_%S", current_time)
