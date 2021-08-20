@@ -179,9 +179,8 @@ def image_demo(predictor, vis_folder, path, current_time, save_result):
     for image_name in files:
         outputs, img_info = predictor.inference(image_name)
         t = image_name.split('/')
-        #print(t[7])
         splitted_name = os.path.splitext(t[7])
-        p = '/content/YOLOX/yolox/det/'+splitted_name[0]+'.txt'
+        p = '/content/YOLOX/yolox/detect/'+splitted_name[0]+'.txt'
         file = open(p, 'w')
         result_image = predictor.visual(p, outputs[0], img_info, predictor.confthre)
         if save_result:
@@ -189,7 +188,7 @@ def image_demo(predictor, vis_folder, path, current_time, save_result):
                 vis_folder, time.strftime("%Y_%m_%d_%H_%M_%S", current_time)
             )
             os.makedirs(save_folder, exist_ok=True)
-            save_file_name = os.path.join(save_folder, os.path.basename(image_name))
+            save_file_name = os.path.join('/content/YOLOX/YOLOX_outputs/vis res', os.path.basename(image_name))
             logger.info("Saving detection result in {}".format(save_file_name))
             cv2.imwrite(save_file_name, result_image)
         ch = cv2.waitKey(0)
