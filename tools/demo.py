@@ -179,7 +179,7 @@ def image_demo(predictor, vis_folder, path, current_time, save_result):
     for image_name in files:
         outputs, img_info = predictor.inference(image_name)
         t = image_name.split('/')
-        splitted_name = os.path.splitext(t[7])
+        splitted_name = os.path.splitext(t[3])
         p = '/content/YOLOX/yolox/detect/'+splitted_name[0]+'.txt'
         file = open(p, 'w')
         result_image = predictor.visual(p, outputs[0], img_info, predictor.confthre)
