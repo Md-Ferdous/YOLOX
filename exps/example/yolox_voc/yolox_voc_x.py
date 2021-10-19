@@ -14,7 +14,7 @@ class Exp(MyExp):
         self.num_classes = 20
         self.depth = 1.33
         self.width = 1.25
-        self.max_epoch = 180
+        self.max_epoch = 170
         self.exp_name = os.path.split(os.path.realpath(__file__))[1].split(".")[0]
 
     def get_data_loader(self, batch_size, is_distributed, no_aug=False):
