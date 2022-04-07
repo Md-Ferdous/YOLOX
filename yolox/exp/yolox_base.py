@@ -57,7 +57,7 @@ class Exp(BaseExp):
         # -----------------  testing config ------------------ #
         self.test_size = (640, 640)
         self.test_conf = 0.01
-        self.nmsthre = 0.5
+        self.nmsthre = 0.65
 
     def get_model(self):
         from yolox.models import YOLOPAFPN, YOLOX, YOLOXHead
